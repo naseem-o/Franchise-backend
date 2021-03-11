@@ -1,8 +1,10 @@
 package com.franchise.qa.persistance.entity;
 
+/**
+ * Entity class
+ */
 
 import com.franchise.qa.persistance.utility.BaseEntity;
-import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
