@@ -5,6 +5,8 @@ import java.util.Date;
 /**
  * Created by noravingal on 08/03/21.
  */
+
+/**DAO class*/
 public class FranchiseDao {
 
     private String applicantName;
