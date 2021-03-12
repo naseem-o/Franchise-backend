@@ -21,20 +21,23 @@ public class FranchiseServiceClass implements FranchiseServiceInterface {
    @Autowired
     FranchiseRepository franchiseRepository;
 
+
+
     @Override
-    public Franchise save(FranchiseDao franchiseDao){
-        Franchise franchise = new Franchise();
+    public Franchise save(FranchiseDao franchiseDao) throws FranchiseBusinessException{
         try {
             if (franchiseRepository.findByIdNumber(franchiseDao.getIdNumber()) != null) {
-                throw new FranchiseBusinessException("Id number already present");
+                throw new FranchiseBusinessException("Id number already used");
             }
+            Franchise franchise = new Franchise();
             BeanUtils.copyProperties(franchiseDao, franchise);
             franchiseRepository.save(franchise);
-
-        }catch (FranchiseBusinessException fe){
-            System.err.print(fe);
+            return franchise;
+        } catch (FranchiseBusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new FranchiseBusinessException("Unexpected Error Occurred");
         }
-        return franchise;
     }
 
     @Override

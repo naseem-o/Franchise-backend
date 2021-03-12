@@ -2,6 +2,7 @@ package com.franchise.qa.controller;
 
 
 import com.franchise.qa.dao.FranchiseDao;
+import com.franchise.qa.exception.FranchiseBusinessException;
 import com.franchise.qa.persistance.entity.Franchise;
 import com.franchise.qa.persistance.repository.FranchiseRepository;
 import com.franchise.qa.service.FranchiseServiceInterface;
@@ -11,7 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by noravingal on 08/03/21.
@@ -28,7 +31,7 @@ public class FranchiseController{
 
 
     @PostMapping("/franchise/save")
-    public ResponseEntity<Franchise> createFranchise(@RequestBody FranchiseDao franchiseDao){
+    public ResponseEntity<Franchise> createFranchise(@RequestBody FranchiseDao franchiseDao) throws FranchiseBusinessException{
         return ResponseEntity.ok(franchiseServiceInterface.save(franchiseDao));
     }
 
@@ -36,6 +39,19 @@ public class FranchiseController{
     @GetMapping("/franchise/list")
     public ResponseEntity<List<Franchise>>listAll(){
         return ResponseEntity.ok(franchiseServiceInterface.listAll());
+    }
+
+    //...
+    @ExceptionHandler({ Exception.class })
+    public ResponseEntity<Map<String, Object>> handleException(Exception e) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "ERROR");
+        if (e instanceof FranchiseBusinessException) {
+            response.put("message", e.getMessage());
+        } else {
+            response.put("message", "Unexpected Error Occurred");
+        }
+        return ResponseEntity.badRequest().body(response);
     }
 
 }
