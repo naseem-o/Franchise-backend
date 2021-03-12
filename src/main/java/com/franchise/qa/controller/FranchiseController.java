@@ -20,16 +20,18 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/rest")
-public class FranchiseController {
+public class FranchiseController{
 
     @Autowired
     FranchiseServiceInterface franchiseServiceInterface;
 
+
+
     @PostMapping("/franchise/save")
     public ResponseEntity<Franchise> createFranchise(@RequestBody FranchiseDao franchiseDao){
         return ResponseEntity.ok(franchiseServiceInterface.save(franchiseDao));
-
     }
+
 
     @GetMapping("/franchise/list")
     public ResponseEntity<List<Franchise>>listAll(){

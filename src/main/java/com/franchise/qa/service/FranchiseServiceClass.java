@@ -1,6 +1,7 @@
 package com.franchise.qa.service;
 
 import com.franchise.qa.dao.FranchiseDao;
+import com.franchise.qa.exception.FranchiseBusinessException;
 import com.franchise.qa.persistance.entity.Franchise;
 import com.franchise.qa.persistance.repository.FranchiseRepository;
 import org.springframework.beans.BeanUtils;
@@ -23,8 +24,16 @@ public class FranchiseServiceClass implements FranchiseServiceInterface {
     @Override
     public Franchise save(FranchiseDao franchiseDao){
         Franchise franchise = new Franchise();
-        BeanUtils.copyProperties(franchiseDao,franchise);
-        franchiseRepository.save(franchise);
+        try {
+            if (franchiseRepository.findByIdNumber(franchiseDao.getIdNumber()) != null) {
+                throw new FranchiseBusinessException("Id number already present");
+            }
+            BeanUtils.copyProperties(franchiseDao, franchise);
+            franchiseRepository.save(franchise);
+
+        }catch (FranchiseBusinessException fe){
+            System.err.print(fe);
+        }
         return franchise;
     }
 
