@@ -7,6 +7,7 @@ import com.franchise.qa.persistance.repository.FranchiseRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class FranchiseServiceClass implements FranchiseServiceInterface {
 
 
     @Override
+    @Transactional
     public Franchise save(FranchiseDao franchiseDao) throws FranchiseBusinessException{
         try {
             if (franchiseRepository.findByIdNumber(franchiseDao.getIdNumber()) != null) {
