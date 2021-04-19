@@ -1,4 +1,4 @@
-package com.franchise.qa.dao;
+package com.franchise.qa.model;
 
 import java.util.Date;
 
@@ -7,7 +7,7 @@ import java.util.Date;
  */
 
 /**DAO class*/
-public class FranchiseDao {
+public class FranchiseModel {
 
     private String applicantName;
     private String idNumber;
@@ -20,6 +20,26 @@ public class FranchiseDao {
     private Double investment;
     private String geographicalArea;
     private String additionalNotes;
+
+    public FranchiseModel() {
+    }
+
+    public FranchiseModel(String applicantName, String idNumber, Date birthDate,
+                          String contactAddress, String contactPhone, String contactEmail,
+                          String previousExperience, String intrestBrand, Double investment,
+                          String geographicalArea, String additionalNotes) {
+        this.applicantName = applicantName;
+        this.idNumber = idNumber;
+        this.birthDate = birthDate;
+        this.contactAddress = contactAddress;
+        this.contactPhone = contactPhone;
+        this.contactEmail = contactEmail;
+        this.previousExperience = previousExperience;
+        this.intrestBrand = intrestBrand;
+        this.investment = investment;
+        this.geographicalArea = geographicalArea;
+        this.additionalNotes = additionalNotes;
+    }
 
     public String getApplicantName() {
         return applicantName;

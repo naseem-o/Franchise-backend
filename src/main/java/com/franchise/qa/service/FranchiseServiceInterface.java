@@ -1,6 +1,6 @@
 package com.franchise.qa.service;
 
-import com.franchise.qa.dao.FranchiseDao;
+import com.franchise.qa.model.FranchiseModel;
 import com.franchise.qa.exception.FranchiseBusinessException;
 import com.franchise.qa.persistance.entity.Franchise;
 
@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface FranchiseServiceInterface {
 
-    Franchise save(FranchiseDao franchiseDao)throws FranchiseBusinessException;
+    Franchise save(FranchiseModel franchiseModel)throws FranchiseBusinessException;
 
     List<Franchise> listAll();
 }

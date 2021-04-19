@@ -58,6 +58,14 @@ public class Franchise extends BaseEntity implements Serializable {
   private String additionalNotes;
 
 
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
   public String getApplicantName() {
     return applicantName;
   }

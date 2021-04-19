@@ -1,14 +1,11 @@
 package com.franchise.qa.controller;
 
 
-import com.franchise.qa.dao.FranchiseDao;
+import com.franchise.qa.model.FranchiseModel;
 import com.franchise.qa.exception.FranchiseBusinessException;
 import com.franchise.qa.persistance.entity.Franchise;
-import com.franchise.qa.persistance.repository.FranchiseRepository;
 import com.franchise.qa.service.FranchiseServiceInterface;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +28,8 @@ public class FranchiseController{
 
 
     @PostMapping("/franchise/save")
-    public ResponseEntity<Franchise> createFranchise(@RequestBody FranchiseDao franchiseDao) throws FranchiseBusinessException{
-        return ResponseEntity.ok(franchiseServiceInterface.save(franchiseDao));
+    public ResponseEntity<Franchise> createFranchise(@RequestBody FranchiseModel franchiseModel) throws FranchiseBusinessException{
+        return ResponseEntity.ok(franchiseServiceInterface.save(franchiseModel));
     }
 
 

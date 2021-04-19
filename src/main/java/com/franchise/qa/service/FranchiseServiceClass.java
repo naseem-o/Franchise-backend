@@ -1,6 +1,6 @@
 package com.franchise.qa.service;
 
-import com.franchise.qa.dao.FranchiseDao;
+import com.franchise.qa.model.FranchiseModel;
 import com.franchise.qa.exception.FranchiseBusinessException;
 import com.franchise.qa.persistance.entity.Franchise;
 import com.franchise.qa.persistance.repository.FranchiseRepository;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +16,7 @@ import java.util.List;
  */
 
 @Service
+@Transactional
 public class FranchiseServiceClass implements FranchiseServiceInterface {
 
    @Autowired
@@ -25,14 +25,13 @@ public class FranchiseServiceClass implements FranchiseServiceInterface {
 
 
     @Override
-    @Transactional
-    public Franchise save(FranchiseDao franchiseDao) throws FranchiseBusinessException{
+    public Franchise save(FranchiseModel franchiseModel) throws FranchiseBusinessException{
         try {
-            if (franchiseRepository.findByIdNumber(franchiseDao.getIdNumber()) != null) {
+            if (franchiseRepository.findByIdNumber(franchiseModel.getIdNumber()) != null) {
                 throw new FranchiseBusinessException("Id number already used");
             }
             Franchise franchise = new Franchise();
-            BeanUtils.copyProperties(franchiseDao, franchise);
+            BeanUtils.copyProperties(franchiseModel, franchise);
             franchiseRepository.save(franchise);
             return franchise;
         } catch (FranchiseBusinessException e) {
@@ -44,7 +43,6 @@ public class FranchiseServiceClass implements FranchiseServiceInterface {
 
     @Override
     public List<Franchise> listAll() {
-        List<Franchise> franchiseList = new ArrayList<>();
 
         return franchiseRepository.findAll();
     }
